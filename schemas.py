@@ -12,7 +12,7 @@ class Blog(BlogBase):
 
 class User(BaseModel):
     name: str
-    email:str
+    email: str
     password: str
 
 class ShowUser(BaseModel):
@@ -35,3 +35,17 @@ class ShowBlog(BaseModel):
     creator : ShowCreator
     class Config():
         from_attributes = True
+
+class Login(BaseModel):
+    username: str
+    password: str
+    # class Config():
+    #     from_attributes = True
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    email: str | None = None
