@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16
+    container_name: my_postgres
+    environment:
+      POSTGRES_USER: thanh
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: blog
+    ports:
+      - "5432" # Maps the PostgreSQL port to the host
+    volumes:
+      - /home/thanh/Projects/db_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: . # Directory containing your Dockerfile
+    container_name: my_app
+    ports:
+      - "8000:8000" # Maps the application port to the host
+    volumes:
+      - .:/app # Bind mount cho mã nguồn ứng dụng
+      - /home/thanh/Projects/logs_volume:/app/logs # Docker volume for storing application logs
+    depends_on:
+      - db # Ensures that PostgreSQL starts before the app
+      
+volumes:
+  db_data: # Declare the named volume for PostgreSQL data
+  logs: # Declare another named volume for application logs
+   
+
+
+
